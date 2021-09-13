@@ -36,7 +36,9 @@ for t=time_start:time_step:time_end
     flywheel_energy = flywheel_energy + flywheel_in;
     
     %flywheel_losses = pi * flywheel_angular^2 * r_flywheel^4 * d_flywheel * rho_air;
-    flywheel_losses = 0;
+    angular_drag = 0.5 * c_ang * flywheel_angular^2 * rho_air * 2 * pi * r_flywheel * d_flywheel;
+    angular_drag_other = rho_air * int((r_flywheel * flywheel_angular)^2)
+    flywheel_losses = angular_drag_other;
     flywheel_in_joule = flywheel_in_joule - flywheel_losses;
     if flywheel_in_joule >= 0
         dt_flywheel_angular = sqrt((2 * flywheel_in_joule)/(I_flywheel));
@@ -56,6 +58,7 @@ for t=time_start:time_step:time_end
     table_flywheel(3,Column)=flywheel_energy;                               %Assign value for flywheel energy to table
     table_flywheel(4,Column)=flywheel_in;                                   %Assign value for incomming flywheel energy to table
     table_flywheel(5,Column)=flywheel_losses;                               %Assign value for energy losses to table    
+
 end
 %%
 %Settings plots

@@ -18,3 +18,4 @@ d_flywheel = 0.40;                                                          %Thi
 rho_flywheel = 7850;                                                        %Density of the material of which the flywheel is made (solid)
 rho_air = 1.2041;                                                           %Density of air
 c_lin = 1;                                                                  %linear air drag coefficient
+c_ang = 0.01;
