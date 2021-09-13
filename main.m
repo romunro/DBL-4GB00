@@ -17,6 +17,10 @@ flywheel_in = 0;                                                            %Sta
 flywheel_energy = 0;                                                        %Starting energy flywheel
 flywheel_rev = 0 ;                                                          %Starting revolutions flywheel, also energy
 
+r_flywheel = 0.85;                                                          %Radius of the flywheel
+d_flywheel = 0.40;                                                          %Thickness of the flywheel
+rho_flywheel = 7850;                                                        %Density of the material of which the flywheel is made (solid)
+
 %%
 %%%%%%%%%%%%%%%%
 % Calculations %
@@ -28,6 +32,10 @@ table_energy = readmatrix('datasets\numericalEnergyData.csv');
 Steps = time_end/time_step;                                                 %Amount of steps
 table_flywheel = zeros(3,Steps+1);                                          %Heat vessel table for data logging
 table_flywheel(1,:) = time_start:time_step:time_end;                        
+
+%Mass calculations
+m_flywheel = pi * r_flywheel^2 * rho_flywheel;                              %Calculating the mass of the flywheel
+
 
 %%
 %%%%%%%%%%%%%%%%%%%
