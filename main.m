@@ -9,9 +9,9 @@ close all;
 %%%%%%%%%%%%%
 % Constants %
 %%%%%%%%%%%%%
-
-
-
+time_start = 0;
+time_step = 0.25;
+time_end = 24;
 %%
 %%%%%%%%%%%%%%%%
 % Calculations %
@@ -24,8 +24,9 @@ close all;
 % Numerical model %
 %%%%%%%%%%%%%%%%%%%
 
+for t=time_start:time_step:time_end
 
-
+end
 %%
 %%%%%%%%%%%%
 % Graphing %
