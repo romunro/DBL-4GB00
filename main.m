@@ -8,5 +8,6 @@ close all;
 %%%%%%%%%%%%%
 % Constants %
 %%%%%%%%%%%%%
+a=2;
 
 asdfasd
