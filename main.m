@@ -58,4 +58,22 @@ end
 %%%%%%%%%%%%
 % Graphing %
 %%%%%%%%%%%%
+t_var = table_flywheel(1,:);
+E_energy = table_flywheel(3,:);
+E_inflow = table_flywheel(4,:);
+%%Figure 1 for surplus
+figure(1);hold on
+figure(1);grid on
+figure(1); plot(t_var,E_inflow);
+
+%figure(1); annotation('textarrow',[0.8 0.9], [0.88 0.845] ,'String','T = 317.7  K ');
+%figure(1); annotation('textarrow', [0.45 0.33], [0.25 0.25], 'String', 'Thermocline effect');
+
+figure(1); ylabel('Inflow energy (kWh)')
+figure(1); legend({'Inflow energy flywheel'}, 'Location','northeast')
+
+figure(1); xlim([0 time_end]);
+figure(1); xlabel('Time (hours)')
+figure(1); title('Inflow energy flywheel')
+figure(1); saveas(gcf,'figures\inflowEnergy.jpg')
 
