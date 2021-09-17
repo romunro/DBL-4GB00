@@ -36,8 +36,9 @@ for t=time_start:time_step:time_end
     flywheel_energy = flywheel_energy + flywheel_in;
     
     %flywheel_losses = pi * flywheel_angular^2 * r_flywheel^4 * d_flywheel * rho_air;
-    angular_drag = 0.5 * c_ang * flywheel_angular^2 * rho_air * 2 * pi * r_flywheel * d_flywheel;
-    flywheel_losses = angular_drag;
+    side_drag = rho_air * A_sides * c_lin
+    top_drag = 0.5 * rho_air * (r_flywheel * flywheel_angular)^2 * c_lin * 2 * pi * r_flywheel
+    flywheel_losses = side_drag + top_drag;
     flywheel_in_joule = flywheel_in_joule - flywheel_losses;
     if flywheel_in_joule >= 0
         dt_flywheel_angular = sqrt((2 * flywheel_in_joule)/(I_flywheel));
