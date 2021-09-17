@@ -11,7 +11,7 @@ loadConstants;
 % Calculations %
 %%%%%%%%%%%%%%%%
 %%% Read CSV data
-table_energy = readmatrix('datasets\numericalEnergyData.csv');
+table_energy = readmatrix('datasets\CSVfiles\Quartile2.csv');
 
 %%% Setting up tables
 Steps = time_end/time_step;                                                 %Amount of steps
@@ -37,8 +37,7 @@ for t=time_start:time_step:time_end
     
     %flywheel_losses = pi * flywheel_angular^2 * r_flywheel^4 * d_flywheel * rho_air;
     angular_drag = 0.5 * c_ang * flywheel_angular^2 * rho_air * 2 * pi * r_flywheel * d_flywheel;
-    angular_drag_other = rho_air * int((r_flywheel * flywheel_angular)^2)
-    flywheel_losses = angular_drag_other;
+    flywheel_losses = angular_drag;
     flywheel_in_joule = flywheel_in_joule - flywheel_losses;
     if flywheel_in_joule >= 0
         dt_flywheel_angular = sqrt((2 * flywheel_in_joule)/(I_flywheel));
