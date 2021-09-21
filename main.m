@@ -33,7 +33,6 @@ for t=time_start:time_step:time_end
      
     flywheel_in = table_energy(2,Column);
     flywheel_in_joule = flywheel_in*3.6e+6;
-    flywheel_energy = flywheel_energy + flywheel_in;
     
     %flywheel_losses = pi * flywheel_angular^2 * r_flywheel^4 * d_flywheel * rho_air;
     side_drag = rho_air * A_sides * c_lin;
@@ -53,6 +52,8 @@ for t=time_start:time_step:time_end
         flywheel_angular = 0;
     end
     
+    flywheel_energy = flywheel_energy + flywheel_in_joule;
+    
     %Log data to table 
     table_flywheel(2,Column)=flywheel_angular;                              %Assign value for flywheel revolutions to table
     table_flywheel(3,Column)=flywheel_energy;                               %Assign value for flywheel energy to table
@@ -63,7 +64,7 @@ for t=time_start:time_step:time_end
 end
 %%
 %Settings plots
-generate_fig1 = false;                                                       %Inflow energy graph
+generate_fig1 = true;                                                       %Inflow energy graph
 generate_fig2 = true;                                                       %Angular velocity flywheel graph
 generate_fig3 = true;
 

@@ -49,11 +49,11 @@ if generate_fig3 == true
     figure(3); plot(t_var,side_drag);
     figure(3); plot(t_var,top_drag);
 
-    figure(3); ylabel('Losses [kWh]')
+    figure(3); ylabel('Losses [kW]')
     figure(3); legend({'Losses due to side drag', 'Losses due to top drag'}, 'Location','northeast')
 
     figure(3); xlim([0 time_end]);
     figure(3); xlabel('Time (hours)')
-    figure(3); title('Losses to air drag in kWh')
+    figure(3); title('Losses to air drag in kW')
     figure(3); saveas(gcf,'figures\airDrag.jpg')
 end
