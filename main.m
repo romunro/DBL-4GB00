@@ -20,7 +20,7 @@ table_flywheel(1,:) = time_start:time_step:time_end;
 
 %Mass calculations
 m_flywheel = pi * r_flywheel^2 * rho_flywheel;                              %Calculating the mass of the flywheel
-I_flywheel = 5;                                                             %Moment of inertia with respect to central axis
+I_flywheel = 0.5 * m_flywheel * r_flywheel^2;                                                             %Moment of inertia with respect to central axis
 
 %%
 %%%%%%%%%%%%%%%%%%%
@@ -30,14 +30,14 @@ I_flywheel = 5;                                                             %Mom
 for t=time_start:time_step:time_end
 %Incoming energy
     Column = round((1/time_step)*t+1);                                      %Table time step counter
-
+     
     flywheel_in = table_energy(2,Column);
     flywheel_in_joule = flywheel_in*3.6e+6;
     flywheel_energy = flywheel_energy + flywheel_in;
     
     %flywheel_losses = pi * flywheel_angular^2 * r_flywheel^4 * d_flywheel * rho_air;
-    side_drag = rho_air * A_sides * c_lin
-    top_drag = 0.5 * rho_air * (r_flywheel * flywheel_angular)^2 * c_lin * 2 * pi * r_flywheel
+    side_drag = rho_air * A_sides * c_lin;
+    top_drag = 0.5 * rho_air * (r_flywheel * flywheel_angular)^2 * c_ang * 2 * pi * r_flywheel;
     flywheel_losses = side_drag + top_drag;
     flywheel_in_joule = flywheel_in_joule - flywheel_losses;
     if flywheel_in_joule >= 0
@@ -57,12 +57,14 @@ for t=time_start:time_step:time_end
     table_flywheel(2,Column)=flywheel_angular;                              %Assign value for flywheel revolutions to table
     table_flywheel(3,Column)=flywheel_energy;                               %Assign value for flywheel energy to table
     table_flywheel(4,Column)=flywheel_in;                                   %Assign value for incomming flywheel energy to table
-    table_flywheel(5,Column)=flywheel_losses;                               %Assign value for energy losses to table    
+    table_flywheel(5,Column)=side_drag/3.6e+6;                                     %Assign value for energy losses to table 
+    table_flywheel(6,Column)=top_drag/3.6e+6;                                      %Assign value for energy losses to table 
 
 end
 %%
 %Settings plots
 generate_fig1 = false;                                                       %Inflow energy graph
 generate_fig2 = true;                                                       %Angular velocity flywheel graph
+generate_fig3 = true;
 
 plotGraphs;
