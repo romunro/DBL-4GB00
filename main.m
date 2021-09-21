@@ -20,7 +20,10 @@ table_flywheel(1,:) = time_start:time_step:time_end;
 
 %Mass calculations
 m_flywheel = pi * r_flywheel^2 * rho_flywheel;                              %Calculating the mass of the flywheel
-I_flywheel = 0.5 * m_flywheel * r_flywheel^2;                                                             %Moment of inertia with respect to central axis
+I_flywheel = 0.5 * m_flywheel * r_flywheel^2;                               %Moment of inertia with respect to central axis
+
+%Initial energy calculation
+flywheel_energy = 0.5 * I_flywheel * flywheel_angular^2;                    %Starting energy flywheel
 
 %%
 %%%%%%%%%%%%%%%%%%%
@@ -37,8 +40,11 @@ for t=time_start:time_step:time_end
     %flywheel_losses = pi * flywheel_angular^2 * r_flywheel^4 * d_flywheel * rho_air;
     side_drag = rho_air * A_sides * c_lin;
     top_drag = 0.5 * rho_air * (r_flywheel * flywheel_angular)^2 * c_ang * 2 * pi * r_flywheel;
+    
     flywheel_losses = side_drag + top_drag;
     flywheel_in_joule = flywheel_in_joule - flywheel_losses;
+    flywheel_energy = flywheel_energy + flywheel_in_joule;
+    
     if flywheel_in_joule >= 0
         dt_flywheel_angular = sqrt((2 * flywheel_in_joule)/(I_flywheel));
     else
@@ -52,7 +58,6 @@ for t=time_start:time_step:time_end
         flywheel_angular = 0;
     end
     
-    flywheel_energy = flywheel_energy + flywheel_in_joule;
     
     %Log data to table 
     table_flywheel(2,Column)=flywheel_angular;                              %Assign value for flywheel revolutions to table
