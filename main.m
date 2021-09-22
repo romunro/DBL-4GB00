@@ -11,7 +11,7 @@ loadConstants;
 % Calculations %
 %%%%%%%%%%%%%%%%
 %%% Read CSV data
-table_energy = readmatrix('datasets\CSVfiles\Quartile2.csv');
+table_energy = readmatrix('datasets/CSVfiles/Quartile2.csv');
 
 %%% Setting up tables
 Steps = time_end/time_step;                                                 %Amount of steps
