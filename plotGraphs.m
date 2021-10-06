@@ -18,7 +18,7 @@ if generate_fig1 == true
     figure(1);grid on
     figure(1); plot(t_var,E_inflow);
 
-    figure(1); ylabel('Inflow energy (kWh)')
+    figure(1); ylabel('Inflow energy (kW)')
     figure(1); legend({'Inflow energy flywheel'}, 'Location','northeast')
 
     figure(1); xlim([0 time_end]);
