@@ -1,11 +1,13 @@
 #include <Wire.h>
 #include <INA226.h>
+#include "TimerOne.h"
+unsigned int counter=0;
 
 INA226 ina;
 
 // Motor 1
-int dir1PinA = 2;
-int dir2PinA = 3;
+int dir1PinA = 3;
+int dir2PinA = 4;
 int speedPinA = 9; // Needs to be a PWM pin to be able to control motor speed
  
 void checkConfig()
@@ -82,6 +84,22 @@ void checkConfig()
   Serial.print(ina.getMaxPower());
   Serial.println(" W");
 }
+
+void docount()  // counts from the speed sensor
+{
+  counter++;  // increase +1 the counter value
+} 
+
+void timerIsr()
+{
+  Timer1.detachInterrupt();  //stop the timer
+  Serial.print("Motor Speed: "); 
+  int rotation = (counter / 1);  // divide by number of holes in Disc
+  Serial.print(rotation,DEC);  
+  Serial.println(" Rotation per seconds"); 
+  counter=0;  //  reset counter to zero
+  Timer1.attachInterrupt( timerIsr );  //enable the timer
+}
  
 void setup()
 {
@@ -89,6 +107,7 @@ void setup()
   pinMode(dir1PinA,OUTPUT);
   pinMode(dir2PinA,OUTPUT);
   pinMode(speedPinA,OUTPUT);
+  
   Serial.println("Initialize INA226");
   Serial.println("-----------------------------------------------");
  
@@ -109,6 +128,10 @@ void setup()
   Serial.println("   ");
   Serial.println("   ");
   Serial.println("   ");
+  
+  Timer1.initialize(1000000); // set timer for 1sec
+  attachInterrupt(0, docount, RISING);  // increase counter when speed sensor pin goes High
+  Timer1.attachInterrupt( timerIsr ); // enable the timer
 
   Serial.print("Time:  ");
   Serial.print("Bus voltage:  "); 
