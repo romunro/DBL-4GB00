@@ -40,8 +40,11 @@ for t=time_start:time_step:time_end
     %flywheel_losses = pi * flywheel_angular^2 * r_flywheel^4 * d_flywheel * rho_air;
     side_drag = rho_air * A_sides * c_lin;
     top_drag = 0.5 * rho_air * (r_flywheel * flywheel_angular)^2 * c_ang * 2 * pi * r_flywheel;
+    bearing_loss = 0;
+    motor_loss = 0;
+    extra_loss = 0;
     
-    flywheel_losses = side_drag + top_drag;
+    flywheel_losses = side_drag + top_drag + bearing_loss + motor_loss + extra_loss;
     flywheel_in_joule = flywheel_in_joule - flywheel_losses;
     flywheel_energy = flywheel_energy + flywheel_in_joule;
     
