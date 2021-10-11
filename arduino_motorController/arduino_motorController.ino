@@ -1,7 +1,6 @@
-
 #include <Wire.h>
 #include <INA226.h>
- 
+
 INA226 ina;
 
 // Motor 1
@@ -106,28 +105,25 @@ void setup()
   checkConfig();
  
   Serial.println("-----------------------------------------------");
+  Serial.println("   ");
+  Serial.println("   ");
+  Serial.println("   ");
+  Serial.println("   ");
+
+  Serial.print("Time:  ");
+  Serial.print("Bus voltage:  "); 
+  Serial.print("Bus power:  "); 
+  Serial.print("Shunt voltage: ");
+  Serial.println("Shunt current: ");
 }
  
 void loop()
 {
-  Serial.print("Bus voltage:   ");
+  Serial.print(millis());
   Serial.print(ina.readBusVoltage(), 5);
-  Serial.println(" V");
- 
-  Serial.print("Bus power:     ");
   Serial.print(ina.readBusPower(), 5);
-  Serial.println(" W");
- 
- 
-  Serial.print("Shunt voltage: ");
   Serial.print(ina.readShuntVoltage(), 5);
-  Serial.println(" V");
- 
-  Serial.print("Shunt current: ");
   Serial.print(ina.readShuntCurrent(), 5);
-  Serial.println(" A");
- 
-  Serial.println("");
   delay(1000);
   if (Serial.available() > 0) {
 int inByte = Serial.read();
