@@ -93,10 +93,10 @@ void docount()  // counts from the speed sensor
 void timerIsr()
 {
   Timer1.detachInterrupt();  //stop the timer
-  Serial.print("Motor Speed: "); 
+//  Serial.print("Motor Speed: "); 
   int rotation = (counter / 1);  // divide by number of holes in Disc
   Serial.print(rotation,DEC);  
-  Serial.println(" Rotation per seconds"); 
+//  Serial.println(" Rotation per seconds"); 
   counter=0;  //  reset counter to zero
   Timer1.attachInterrupt( timerIsr );  //enable the timer
 }
@@ -137,16 +137,22 @@ void setup()
   Serial.print("Bus voltage:  "); 
   Serial.print("Bus power:  "); 
   Serial.print("Shunt voltage: ");
-  Serial.println("Shunt current: ");
+  Serial.print("Shunt current: ");
+  Serial.print("Motor Speed: ");
 }
  
 void loop()
 {
   Serial.print(millis());
+  Serial.print(", ");
   Serial.print(ina.readBusVoltage(), 5);
+  Serial.print(", ");
   Serial.print(ina.readBusPower(), 5);
+  Serial.print(", ");
   Serial.print(ina.readShuntVoltage(), 5);
+  Serial.print(", ");
   Serial.print(ina.readShuntCurrent(), 5);
+  Serial.println(", ");
   delay(1000);
   if (Serial.available() > 0) {
 int inByte = Serial.read();
