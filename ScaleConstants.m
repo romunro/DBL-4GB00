@@ -12,8 +12,8 @@ time_end = 23.75;                                                           %End
 flywheel_in = 0;                                                            %Starting inflow energy
 flywheel_angular = 200;                                                     %Starting angular velocity flywheel
 
-r_flywheel = 0.85;                                                          %Radius of the flywheel
-d_flywheel = 0.40;                                                          %Thickness of the flywheel
+r_flywheel = 0.075;                                                          %Radius of the flywheel
+d_flywheel = 0.03;                                                          %Thickness of the flywheel
 rho_flywheel = 7200;                                                        %Density of the material of which the flywheel is made (Cast-iron)
 rho_air = 1.2041;                                                           %Density of air
 c_lin = 1.17;                                                               %linear air drag coefficient
