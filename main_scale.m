@@ -11,7 +11,7 @@ ScaleConstants;
 % Calculations %
 %%%%%%%%%%%%%%%%
 %%% Read CSV data
-table_energy = readmatrix(['datasets/CSVfiles/Dataset_3.csv']);
+table_energy = readmatrix(['datasets/CSVfiles/Dataset_2.csv']);
 
 %%% Setting up tables                                                       %Heat vessel table for data logging
 table_flywheel(1,:) = table_energy(1,:) - table_energy(1,1);                      
