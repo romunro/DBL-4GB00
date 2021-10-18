@@ -13,7 +13,7 @@ bearing_drag = table_flywheel(7,:);
 motor_drag = table_flywheel(8,:);
 E_energy = table_flywheel(3,:);
 E_inflow = table_flywheel(4,:);
-table_experiment = readmatrix(['datasets/CSVfiles/Dataset_2_angular_velocity.csv']);
+table_experiment = readmatrix(['datasets/CSVfiles/Dataset_3_angular_velocity.csv']);
 ang_experiment = table_experiment(2,:)
 
 %%Figure 1 for surplus
