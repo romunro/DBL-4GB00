@@ -4,23 +4,21 @@
 clc;
 clear;
 close all;
-loadConstants;
+ScaleConstants;
 
 %%
 %%%%%%%%%%%%%%%%
 % Calculations %
 %%%%%%%%%%%%%%%%
 %%% Read CSV data
-table_energy = readmatrix(['datasets/CSVfiles/Quartile2.csv'])/1000;
+table_energy = readmatrix(['datasets/CSVfiles/Dataset_2.csv']);
 
-%%% Setting up tables
-Steps = time_end/time_step;                                                 %Amount of steps
-table_flywheel = zeros(3,Steps+1);                                          %Heat vessel table for data logging
-table_flywheel(1,:) = time_start:time_step:time_end;                        
+%%% Setting up tables                                                       %Heat vessel table for data logging
+table_flywheel(1,:) = table_energy(1,:)                      
 
 %Mass calculations
-m_flywheel = pi * r_flywheel^2 * d_flywheel * rho_flywheel;                              %Calculating the mass of the flywheel
-I_flywheel = 0.5 * m_flywheel * r_flywheel^2;                               %Moment of inertia with respect to central axis
+m_flywheel = m_disc + m_rod + m_nuts + m_washers;                           %Calculating the mass of the flywheel
+I_flywheel = 0.5 * m_disc * r_disc^2 ;                                      %Moment of inertia with respect to central axis
 
 %Initial energy calculation
 flywheel_energy = 0.5 * I_flywheel * flywheel_angular^2;                    %Starting energy flywheel
@@ -29,17 +27,17 @@ flywheel_energy = 0.5 * I_flywheel * flywheel_angular^2;                    %Sta
 %%%%%%%%%%%%%%%%%%%
 % Numerical model %
 %%%%%%%%%%%%%%%%%%%
-
-for t=time_start:time_step:time_end
+Column = 0;
+for t=table_energy(1,:)
 %Incoming energy
-    Column = round((1/time_step)*t+1);                                      %Table time step counter
+    Column = Column + 1;                                                    %Table time step counter
      
     flywheel_in = table_energy(2,Column);
     flywheel_in_joule = flywheel_in*3.6e+6;
     
     %flywheel_losses = pi * flywheel_angular^2 * r_flywheel^4 * d_flywheel * rho_air;
     side_drag = rho_air * A_sides * c_lin;
-    top_drag = 0.5 * rho_air * (r_flywheel * flywheel_angular)^2 * c_ang * 2 * pi * r_flywheel;
+    top_drag = 0.5 * rho_air * (r_disc * flywheel_angular)^2 * c_ang * 2 * pi * r_disc;
     bearing_loss = 0;
     motor_loss = 0;
     extra_loss = 0;
