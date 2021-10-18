@@ -29,14 +29,14 @@ for t=table_energy(1,:)
 %Incoming energy
     Column = Column + 1;                                                    %Table time step counter
      
-    flywheel_in = table_energy(2,Column)/1000;
-    flywheel_in_joule = flywheel_in*3.6e+3;
+    flywheel_in = table_energy(2,Column);
+    flywheel_in_joule = flywheel_in;
     
     %flywheel_losses = pi * flywheel_angular^2 * r_flywheel^4 * d_flywheel * rho_air;
-    side_drag = rho_air * A_sides * c_lin;
+    side_drag = rho_air * A_sides * c_lin * flywheel_in_joule;
     top_drag = 1/5 * pi * c_lin * rho_air * flywheel_angular^2 * r_disc^5;
-    bearing_loss = 1.05*10^(-4) * (m_rod + m_nuts + m_washers + m_disc) * (0.025/2) * flywheel_angular * 9,5493;
-    motor_loss = (flywheel_in_joule * 0.10);
+    bearing_loss = 1.05*10^(-4)* 0.002 * (m_rod + m_nuts + m_washers + m_disc) * 9.81 * (25/2) * flywheel_angular * 9,5493;
+    motor_loss = (flywheel_in_joule * 0.30);
     extra_loss = 0;
     
     flywheel_losses = side_drag + top_drag + bearing_loss + motor_loss + extra_loss;
