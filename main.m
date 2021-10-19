@@ -19,7 +19,7 @@ table_flywheel = zeros(3,Steps+1);                                          %Hea
 table_flywheel(1,:) = time_start:time_step:time_end;                        
 
 %Mass calculations
-m_flywheel = pi * r_flywheel^2 * d_flywheel * rho_flywheel;                              %Calculating the mass of the flywheel
+m_flywheel = pi * r_flywheel^2 * d_flywheel * rho_flywheel;                 %Calculating the mass of the flywheel
 I_flywheel = 0.5 * m_flywheel * r_flywheel^2;                               %Moment of inertia with respect to central axis
 
 %Initial energy calculation
@@ -38,8 +38,8 @@ for t=time_start:time_step:time_end
     flywheel_in_joule = flywheel_in*3.6e+6;
     
     %flywheel_losses = pi * flywheel_angular^2 * r_flywheel^4 * d_flywheel * rho_air;
-    side_drag = rho_air * A_sides * c_lin;
-    top_drag = 0.5 * rho_air * (r_flywheel * flywheel_angular)^2 * c_ang * 2 * pi * r_flywheel;
+    side_drag = rho_air * A_sides * c_lin * flywheel_in_joule;
+    top_drag = 1/5 * pi * c_lin * rho_air * flywheel_angular^2 * r_disc^5
     bearing_loss = 0;
     motor_loss = 0;
     extra_loss = 0;

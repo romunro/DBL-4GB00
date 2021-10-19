@@ -39,7 +39,7 @@ if generate_fig2 == true
     figure(2); plot(t_var,ang_experiment)
 
     figure(2); ylabel('Angular velocity [rad/s]')
-    figure(2); legend({'Angular velocity [rad/s]'}, 'Location','northeast')
+    figure(2); legend({'Angular velocity [rad/s] MATLAB', 'Angular velocity [rad/s] Experiment'}, 'Location','northeast')
 
     figure(2); xlim([0 0.025]);
     figure(2); xlabel('Time (hours)')
