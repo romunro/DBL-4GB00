@@ -39,9 +39,13 @@ for t=time_start:time_step:time_end
     
     %flywheel_losses = pi * flywheel_angular^2 * r_flywheel^4 * d_flywheel * rho_air;
     side_drag = rho_air * A_sides * c_lin * flywheel_in_joule/1000;
-    top_drag = 1/5 * pi * c_lin * rho_air * flywheel_angular^2 * r_flywheel^5
-    bearing_loss = 1.05*10^(-4)* 0.002 * (m_flywheel) * 9.81 * (25/2) * flywheel_angular * 9,5493;
-    motor_loss = (flywheel_in_joule * 0.30);
+    top_drag = 1/5 * pi * c_lin * rho_air * flywheel_angular^2 * r_flywheel^5;
+    bearing_loss = 1.05*10^(-4)* 0.002 * (m_flywheel) * 9.81 * (25/2) * flywheel_angular * 9.5493;
+    if flywheel_angular > 0
+        motor_loss = abs(flywheel_in_joule * 0.30);
+    else
+        motor_loss = 0;                                                     %To prevent energy loss from flywheel with no angular velocity
+    end
     extra_loss = 0;
     
     flywheel_losses = side_drag + top_drag + bearing_loss + motor_loss + extra_loss;
@@ -68,9 +72,9 @@ for t=time_start:time_step:time_end
     table_flywheel(4,Column)=flywheel_in;                                   %Assign value for incomming flywheel energy to table
     table_flywheel(5,Column)=side_drag/3.6e+6;                              %Assign value for energy losses to table 
     table_flywheel(6,Column)=top_drag/3.6e+6;                               %Assign value for energy losses to table 
-    table_flywheel(7,Column)=bearing_loss/3.6e+6                            %Assign value for energy losses to table 
-    table_flywheel(8,Column)=motor_loss/3.6e+6
-
+    table_flywheel(7,Column)=bearing_loss/3.6e+6;                           %Assign value for energy losses to table 
+    table_flywheel(8,Column)=motor_loss/3.6e+6;                             %Assign value for energy losses to table 
+    table_flywheel(9,Column)=flywheel_losses/3.6e+6;                        %Total losses in system
 end
 %%
 %Settings plots
@@ -79,3 +83,11 @@ generate_fig2 = true;                                                       %Ang
 generate_fig3 = true;
 
 plotGraphs;
+%%
+%Efficiency calculation
+losses = sum(table_flywheel(9,:));
+t=table_flywheel(4,:);
+input = sum(t(t>0));
+
+disp(['Efficiency of system [%]: ',num2str(100 - losses / input * 100)])
+

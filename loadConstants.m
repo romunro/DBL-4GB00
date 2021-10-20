@@ -20,4 +20,4 @@ c_lin = 1.17;                                                               %lin
 c_ang = 1;                                                                  %angular drag coefficient
 A_sides = 2 * pi * r_flywheel * d_flywheel;
 A_top = pi * r_flywheel^2;                                                  %Drag of the top of the main cylinder
-m_flywheel = pi * r_flywheel^2 * d_flywheel * rho_flywheel
+m_flywheel = pi * r_flywheel^2 * d_flywheel * rho_flywheel;

@@ -44,7 +44,7 @@ if generate_fig2 == true
     figure(2); saveas(gcf,'figures\angularVelocity.jpg')
 end
 
-%%Figure 2 for flywheel rotation
+%%Figure 3 for flywheel losses
 if generate_fig3 == true
     figure(3);hold on
     figure(3);grid on
@@ -54,10 +54,10 @@ if generate_fig3 == true
     figure(3); plot(t_var,motor_drag)
 
     figure(3); ylabel('Losses [kW]')
-    figure(3); legend({'Losses due to side drag', 'Losses due to top drag', 'Losses due to bearing friction', 'Losses due to motor resistance'}, 'Location','northeast')
+    figure(3); legend({'Losses due to side drag', 'Losses due to top drag', 'Losses due to bearing friction', 'Losses due to motor resistance'}, 'Location','northwest')
 
     figure(3); xlim([0 time_end]);
     figure(3); xlabel('Time (hours)')
-    figure(3); title('Losses to air drag in kW')
+    figure(3); title('Losses in system in kW')
     figure(3); saveas(gcf,'figures\airDrag.jpg')
 end
