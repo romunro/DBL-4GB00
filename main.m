@@ -4,8 +4,12 @@
 clc;
 clear;
 close all;
-loadConstants;
 
+%%
+%Settings
+vacuumPercentage = 99.99;                                                          %Percentage of vacuum percentage [%]
+%%
+loadConstants;                                                              %Load constant from .m file
 %%
 %%%%%%%%%%%%%%%%
 % Calculations %
@@ -89,6 +93,7 @@ losses = sum(table_flywheel(9,:));
 t=table_flywheel(4,:);
 input = sum(t(t>0));
 
+disp(['Total input energy [kWh]: ',num2str(input)])
 disp(['Total loss to air drag [kWh]: ',num2str(sum(table_flywheel(5,:) + table_flywheel(6,:)))])
 disp(['Total loss to bearing friction [kWh]: ',num2str(sum(table_flywheel(7,:)))])
 disp(['Total loss to motor friction [kWh]: ',num2str(sum(table_flywheel(8,:)))])
