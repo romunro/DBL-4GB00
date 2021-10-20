@@ -10,7 +10,7 @@ time_start = 0;                                                             %Sta
 time_step = 0.25;                                                           %Time step, every 15 minutes
 time_end = 23.75;                                                           %End time, after 24 hours
 flywheel_in = 0;                                                            %Starting inflow energy
-flywheel_angular = 200;                                                     %Starting angular velocity flywheel
+flywheel_angular = 0;                                                     %Starting angular velocity flywheel
 
 r_flywheel = 0.85;                                                          %Radius of the flywheel
 d_flywheel = 0.40;                                                          %Thickness of the flywheel

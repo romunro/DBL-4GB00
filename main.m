@@ -38,7 +38,7 @@ for t=time_start:time_step:time_end
     flywheel_in_joule = flywheel_in*3.6e+6;
     
     %flywheel_losses = pi * flywheel_angular^2 * r_flywheel^4 * d_flywheel * rho_air;
-    side_drag = rho_air * A_sides * c_lin * flywheel_in_joule;
+    side_drag = rho_air * A_sides * c_lin * flywheel_in_joule/1000;
     top_drag = 1/5 * pi * c_lin * rho_air * flywheel_angular^2 * r_flywheel^5
     bearing_loss = 1.05*10^(-4)* 0.002 * (m_flywheel) * 9.81 * (25/2) * flywheel_angular * 9,5493;
     motor_loss = (flywheel_in_joule * 0.30);

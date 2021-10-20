@@ -11,6 +11,8 @@ side_drag = table_flywheel(5,:);
 top_drag = table_flywheel(6,:);
 E_energy = table_flywheel(3,:);
 E_inflow = table_flywheel(4,:);
+bearing_drag = table_flywheel(7,:);
+motor_drag = table_flywheel(8,:);
 
 %%Figure 1 for surplus
 if generate_fig1 == true
@@ -48,9 +50,11 @@ if generate_fig3 == true
     figure(3);grid on
     figure(3); plot(t_var,side_drag);
     figure(3); plot(t_var,top_drag);
+    figure(3); plot(t_var,bearing_drag )
+    figure(3); plot(t_var,motor_drag)
 
     figure(3); ylabel('Losses [kW]')
-    figure(3); legend({'Losses due to side drag', 'Losses due to top drag'}, 'Location','northeast')
+    figure(3); legend({'Losses due to side drag', 'Losses due to top drag', 'Losses due to bearing friction', 'Losses due to motor resistance'}, 'Location','northeast')
 
     figure(3); xlim([0 time_end]);
     figure(3); xlabel('Time (hours)')

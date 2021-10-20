@@ -73,4 +73,4 @@ generate_fig1 = true;                                                       %Inf
 generate_fig2 = true;                                                       %Angular velocity flywheel graph
 generate_fig3 = true;
 
-plotGraphs;
+plotGraphs_scale;
