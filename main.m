@@ -89,5 +89,9 @@ losses = sum(table_flywheel(9,:));
 t=table_flywheel(4,:);
 input = sum(t(t>0));
 
+disp(['Total loss to air drag [kWh]: ',num2str(sum(table_flywheel(5,:) + table_flywheel(6,:)))])
+disp(['Total loss to bearing friction [kWh]: ',num2str(sum(table_flywheel(7,:)))])
+disp(['Total loss to motor friction [kWh]: ',num2str(sum(table_flywheel(8,:)))])
+fprintf('\n')
 disp(['Efficiency of system [%]: ',num2str(100 - losses / input * 100)])
 
