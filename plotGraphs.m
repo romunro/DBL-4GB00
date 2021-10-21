@@ -18,11 +18,12 @@ motor_drag = table_flywheel(8,:);
 if generate_fig1 == true
     figure(1);hold on
     figure(1);grid on
+    figure(1); annotation('line' , [0.13 0.91], [0.52 0.52]);
     figure(1); plot(t_var,E_inflow);
-
+    
     figure(1); ylabel('Inflow energy (kW)')
     figure(1); legend({'Inflow energy flywheel'}, 'Location','northeast')
-
+    
     figure(1); xlim([0 time_end]);
     figure(1); xlabel('Time (hours)')
     figure(1); title('Inflow energy flywheel')
