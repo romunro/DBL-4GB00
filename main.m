@@ -43,17 +43,22 @@ for t=time_start:time_step:time_end
     flywheel_in_joule = flywheel_in*3.6e+6;
     
     %flywheel_losses = pi * flywheel_angular^2 * r_flywheel^4 * d_flywheel * rho_air;
-    side_drag = rho_air * A_sides * c_lin * flywheel_in_joule/1000;
+    side_drag = rho_air * A_sides * c_lin * flywheel_angular;
     top_drag = 1/5 * pi * c_lin * rho_air * flywheel_angular^2 * r_flywheel^5;
     bearing_loss = 1.05*10^(-4)* 0.002 * (m_flywheel) * 9.81 * (25/2) * flywheel_angular * 9.5493;
     if flywheel_angular > 0
-        motor_loss = abs(flywheel_in_joule * 0.30);
+        motor_loss = abs(flywheel_in_joule * 0.20);
     else
         motor_loss = 0;                                                     %To prevent energy loss from flywheel with no angular velocity
     end
     extra_loss = 0;
     
     flywheel_losses = side_drag + top_drag + bearing_loss + motor_loss + extra_loss;
+    if (flywheel_angular <= 0) && (flywheel_in_joule <=0)
+        flywheel_losses = 0;
+        flywheel_in_joule = 0;
+    end
+    
     flywheel_in_joule = flywheel_in_joule - flywheel_losses;
     flywheel_energy = flywheel_energy + flywheel_in_joule;
     
@@ -63,13 +68,13 @@ for t=time_start:time_step:time_end
         flywheel_in_joule = flywheel_in_joule*-1;
         dt_flywheel_angular = -sqrt((2 * flywheel_in_joule)/(I_flywheel));
     end
-    
-    flywheel_angular = flywheel_angular + dt_flywheel_angular;
-    
+   
+    flywheel_angular = real(sqrt((2 * flywheel_energy)/(I_flywheel)));
+       
     if flywheel_angular < 0
         flywheel_angular = 0;
+        flywheel_energy = 0;
     end
-    
     
     %Log data to table 
     table_flywheel(2,Column)=flywheel_angular;                              %Assign value for flywheel revolutions to table
@@ -93,11 +98,21 @@ plotGraphs;
 losses = sum(table_flywheel(9,:));
 t=table_flywheel(4,:);
 input = sum(t(t>0));
+output = sum(t(t<0));
 
-disp(['Total input energy [kWh]: ',num2str(365*input)])
+disp(['Total input energy [kWh]: ',num2str(numDays*input)])
+disp(['Total output energy [kWh]: ',num2str(numDays*output)])
 disp(['Total loss to air drag [kWh]: ',num2str(numDays*sum(table_flywheel(5,:) + table_flywheel(6,:)))])
 disp(['Total loss to bearing friction [kWh]: ',num2str(numDays*sum(table_flywheel(7,:)))])
 disp(['Total loss to motor friction [kWh]: ',num2str(numDays*sum(table_flywheel(8,:)))])
 fprintf('\n')
 disp(['Efficiency of system [%]: ',num2str(100 - losses / input * 100)])
+
+%%
+%Specific energy calculation
+fprintf('\n')
+E = K * (concrete_tensile / rho_flywheel) * m_flywheel / 3.6e+6;
+E_calc = 0.5*I_flywheel * (max(table_flywheel(2,:))) ^2  /   3.6e6;
+disp(['Theoretical storage capacity [kWh]: ', num2str(E)])
+disp(['Maximum stored energy using max. angular velocity [kWh]: ', num2str(E_calc)])
 
